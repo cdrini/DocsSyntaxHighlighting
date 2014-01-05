@@ -39,12 +39,11 @@ String.prototype.contains = function(query){
     return (this.indexOf(query) !== -1);
 }
 
-// parser: String String -> (listof String)
-// Splits the string str at every character in breaks, makeing the every chunk and the
-// break characters elements of a list.
-// parser: String String -> (listof String)
-// Splits the string str at every character in breaks, makeing the every chunk and the
-// break characters elements of a list.
+// parser: String String (listof String) -> (listof String)
+// Splits the string str at every character in breaks, returning
+// string with the break characters as separate chunks. Any element
+// in multichar (which must start with one of the breaks) will remain
+// together.
 function parser(str, breaks, multichar){
     var result = [];
     var current = "";
@@ -119,6 +118,9 @@ function parser(str, breaks, multichar){
 }
 
 function coloredCode(lang, skin) {
+
+  // TO-DO: Support partial paragraph selections
+
   // Grab selection. If none, alert and exit
   var selection = DocumentApp.getActiveDocument().getSelection();
   if (!selection) {
