@@ -1,0 +1,6 @@
+This script allows Google Docs to perform Syntax Highlighting on a given selected text.
+
+Currently Supported Languages:
+* JavaScript
+* Python
+* Scheme (Racket)
