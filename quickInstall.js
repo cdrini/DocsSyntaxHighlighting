@@ -1,4 +1,4 @@
-// STYLES BASES
+//*******************stylesBases.js**************
 
 function isOneOf(b) {return function(a) {return b.indexOf(a) != -1}}
 function isEqualTo(a) {return function(b) {return a == b}}
@@ -174,8 +174,7 @@ function format(text, style, start, end){
   }    
 }
 
-// MAIN
-
+//*******************main.js*********************
 
 //Data Definitions
 // Style: Dictionary with any keys from fgcolor, bgcolor, bold, italic, fontfamily, etc.
