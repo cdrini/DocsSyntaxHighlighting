@@ -16,16 +16,16 @@ function onOpen() {
                  .addItem('Notepad++', 'jsnotepadpp'))
       .addSubMenu(ui.createMenu('Python')
           .addItem('Notepad++', 'pythonnotepadpp'))
-      .addSubMenu(ui.createMenu('Scheme')
-          .addItem('Dr Racket', 'schemedrracket')
-          .addItem('HtDP', 'schemeHtDP')
-          .addItem('UW Computer Science', 'schemeUWCS'))
+      .addSubMenu(ui.createMenu('Racket')
+          .addItem('Dr Racket', 'racketdrracket')
+          .addItem('HtDP', 'racketHtDP')
+          .addItem('UW Computer Science', 'racketUWCS'))
       .addToUi();
 }
 
-function schemedrracket(){coloredCode('scheme', 'drracket')};
-function schemeHtDP(){coloredCode('scheme', 'HtDP')};
-function schemeUWCS(){coloredCode('scheme', 'UWCS')};
+function racketdrracket(){coloredCode('racket', 'drracket')};
+function racketHtDP(){coloredCode('racket', 'HtDP')};
+function racketUWCS(){coloredCode('racket', 'UWCS')};
 function jsgoogle(){coloredCode('javascript', 'google')};
 function jsnotepadpp(){coloredCode('javascript', 'notepadpp')};
 function pythonnotepadpp(){coloredCode('python', 'notepadpp')};
@@ -199,7 +199,7 @@ function coloredCode(lang, skin) {
             break;
           }
           
-          if (typeof currentRule[2] === 'number') glideCount = currentRule[2];
+          if (typeof currentRule[2] === 'number') glideCount = currentRule[2]-1;
           else glideEndChars = currentRule[2];
           glideStyle = currentRule[1];
           
