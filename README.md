@@ -1,11 +1,13 @@
+#Google Docs Syntax Coloring
+
 This script allows Google Docs to perform Syntax Highlighting on a given selected text.
 
-TO INSTALL:
+## To Install:
 1. Open a Google Docs Document
 2. Go to Tools -> Script Manager...
 3. Click 'New'
 4. Select 'Blank Project'
-5. Copy the contents of 'main.js' into Code.gs, replacing all given text
+5. Copy the contents of 'main.js' into Code.gs, replacing default text
 6. Go to File -> Save
 7. In the script editor, go to File -> New Script File
 8. Name it 'StylesBase'
