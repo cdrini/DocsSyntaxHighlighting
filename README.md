@@ -12,6 +12,7 @@ This script allows Google Docs to perform Syntax Highlighting on a given selecte
 7. Return to your document, and refresh it. The 'Syntax Coloring' menu should now have appeared.
 
 Currently Supported Languages:
+* C (w/o REGEX)
 * JavaScript
 * Python
 * Racket

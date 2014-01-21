@@ -10,6 +10,8 @@ var ui = DocumentApp.getUi();
 
 function onOpen() {
   ui.createMenu('Syntax Coloring')
+	  .addSubMenu(ui.createMenu('C')
+				 .addItem('Notepad++', 'cnotepadpp'))
       .addSubMenu(ui.createMenu('JavaScript')
                  .addItem('Codecademy', 'jscodecademy')
                  .addItem('Google Apps', 'jsgoogle')
@@ -23,6 +25,7 @@ function onOpen() {
       .addToUi();
 }
 
+function cnotepadpp(){coloredCode('c', 'notepadpp')};
 function racketdrracket(){coloredCode('racket', 'drracket')};
 function racketHtDP(){coloredCode('racket', 'HtDP')};
 function racketUWCS(){coloredCode('racket', 'UWCS')};

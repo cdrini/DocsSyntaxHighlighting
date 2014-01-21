@@ -2,7 +2,7 @@ function isOneOf(b) {return function(a) {return b.indexOf(a) != -1}}
 function isEqualTo(a) {return function(b) {return a == b}}
 function startsWithOneOf(b) {return function(a) {return b.indexOf(a[0]) != -1}}
 function isComposedOf(atoms) { return function(lst) {
-  if(lst.length ===0) return false;
+  if(lst.length === 0) return false;
   for(var i = 0; i < lst.length; i++){
     // If is present
     if (atoms.indexOf(lst[i]) !== -1) continue;
@@ -36,6 +36,28 @@ Array.prototype.remove = function(to_rem){
 languages = {};
 // Format of a styling rule:
 // [ 0:chunkCheck, 1:style(inclusive), 2:endChars or endCount, 3:startCharStyle, 4:endCharStyle ]
+
+//*************** C ************************
+languages.c = {};
+languages.c.breaks = " #{}()/[].\r'\",;=-+*/\t&|";
+languages.c.doubles = ['//', '/*', '*/'];
+languages.c.operators = '(){};:?[]+-*/=<>.,&|!';
+languages.c.keywords = ['if', 'else', 'switch', 'case', 'default', 'break', 'goto', 'return', 'for', 'while', 'do', 'continue', 'typedef', 'sizeof', 'NULL']; //instruction words
+languages.c.keywords1 = ['void', 'struct', 'union', 'enum', 'char', 'short', 'int', 'long', 'double', 'float', 'signed', 'unsigned', 'const', 'static', 'extern', 'auto', 'register', 'volatile']
+
+languages.c.styles = {};
+languages.c.styles.notepadpp = {};
+languages.c.styles.notepadpp.def = {fontSize:11};
+languages.c.styles.notepadpp.rules = [[isOneOf(languages.c.keywords), {fgcolor:'#0000FF', bold:true}],
+									  [isOneOf(languages.c.keywords1), {fgcolor:'#8000FF', bold:true}],
+									  [isOneOf(languages.c.operators), {fgcolor:'#000080', bold:true}],
+                                      [isNumber, {fgcolor:'#ff8000'}],
+									  [isEqualTo('#'), {fgcolor:'#804000'}, '\r'],
+                                      [isEqualTo("'"), {fgcolor:'#808080'}, "'\r"],
+                                      [isEqualTo('"'), {fgcolor:'#808080'}, '"\r'],
+                                      [isEqualTo('//'), {fgcolor:'#008000'}, '\r'],
+                                      [isEqualTo('/*'), {fgcolor:'#008080'}, ['*/']]];
+
 
 //*********** Racket ***************
 languages.racket = {};
