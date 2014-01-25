@@ -1,0 +1,126 @@
+<style>
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Roboto Light'), local('Roboto-Light'), url(http://themes.googleusercontent.com/static/fonts/roboto/v10/Hgo13k-tfSpn0qi1SFdUfT8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Roboto Italic'), local('Roboto-Italic'), url(http://themes.googleusercontent.com/static/fonts/roboto/v10/1pO9eUAp8pSF8VnRTP3xnvesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+}
+/* Having some issues
+#background{
+    background: -webkit-linear-gradient(left, #222 -1%, #3F3F3F 5%); // For Safari
+    background: -o-linear-gradient(right, #222 -1%, #3F3F3F 5%); // For Opera 11.1 to 12.0
+    background: -moz-linear-gradient(right, #222 -1%, #3F3F3F 5%); // For Firefox 3.6 to 15
+    background: linear-gradient(to right, #222 -1%, #3F3F3F 5%);
+    height: 100%;
+    -webkit-box-shadow: 3px 3px 23px #222222 inset;
+    box-shadow: 3px 3px 23px #222222 inset; not working (?)
+    overflow: hidden;
+}
+*/
+#message {
+position: relative;
+top:-2em;
+height: 2em;
+background-color: #F0B702;
+line-height: 2em;
+font-family: Roboto;
+font-size: 0.8em;
+font-style: italic;
+text-align: center;
+}
+
+select {
+width: 100%;
+height: 35px;
+margin-bottom: 10px;
+background: linear-gradient(#f5f5f5, #f1f1f1);
+border-color: #ddd;
+border-radius: 3px;
+}
+
+button {
+width: 100%;
+height: 40px;
+font-size: 1.3em;
+font-family: 'Roboto Light', sans-serif;
+color: rgb(249, 252, 255);
+background: #1AB2DA;
+border-radius: 9px;
+border-width: 0;
+}
+
+button:hover {
+background: #44C0E0;
+border: 2px #4DD0F3 solid;
+}
+
+button:active {
+background: #2FA9C9;
+border: 2px #30C5EC solid;
+}
+
+button:focus {
+outline: none;
+}
+</style>
+
+<div id="background">
+<div id="message"></div>
+<div style="margin:5% 7%;">
+
+<!-- Language Selector -->
+<select id="language">
+  <option value="c">C</option>
+  <option value="javascript">JavaScript</option>
+  <option value="python">Python</option>
+  <option value="racket">Racket</option>
+</select>
+
+<button onclick="highlight()">Highlight</button>
+</div>
+</div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+// Grabs the selected language
+window.getLang= function(){
+    var index = document.getElementById("language").selectedIndex;
+    var languages = document.getElementById("language").options;
+    return languages[index].value;
+}
+
+// Shows message to user
+window.notify = function(str){
+    $("#message").text(str).css({display:"block"}).animate({top:'0px'});
+}
+
+// Displays 'Done' and removes message
+window.onSuccess = function() {
+    notify('Done');
+    $("#message").css({background:"#89D627"}).delay(1000).animate({top:'-2em'});
+}
+
+// Displays 'Error has occurred' and removes message
+window.onFailure = function() {
+    notify('An error occured')
+    $("#message").css({background:"#F36414"}).delay(1000).animate({top:'-2em'});
+}
+
+// Applies syntax coloring
+window.highlight = function(){
+    var lang = getLang();
+    var style = 'notepadpp';
+    
+    notify("Working...");
+    $("#message").css({background:"#F0B702"});
+    if(lang === 'racket') style = 'drracket';
+    google.script.run.withSuccessHandler(onSuccess).withFailureHandler(onFailure).coloredCode(lang, style);
+}
+</script>

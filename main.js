@@ -9,7 +9,8 @@
 var ui = DocumentApp.getUi();
 
 function onOpen() {
-  ui.createMenu('Syntax Coloring')
+  ui.createMenu('Syntax Highlighting')
+      .addItem('Choose language... (beta)', 'langSelector')
 	  .addSubMenu(ui.createMenu('C')
 				 .addItem('Notepad++', 'cnotepadpp'))
       .addSubMenu(ui.createMenu('JavaScript')
@@ -34,13 +35,25 @@ function jsnotepadpp(){coloredCode('javascript', 'notepadpp')};
 function pythonnotepadpp(){coloredCode('python', 'notepadpp')};
 function jscodecademy(){coloredCode('javascript', 'codecademyLabs')};
 
-// Some useful functions
+function langSelector() {
+  try{
+    DocumentApp.getUi().showSidebar(
+      HtmlService
+      .createHtmlOutputFromFile('langSelector')
+      .setSandboxMode(HtmlService.SandboxMode.NATIVE)
+      .setTitle('Syntax Highlighting')
+      .setWidth(250 /* pixels */));
+  }
+  catch(err){
+    ui.alert('This feature is in beta. To test it, make sure the langSelector.html file is in the script');
+  }
+}
+
+//Determine if the parameter is in the given Array or String
 Array.prototype.contains = function(query){
-    return (this.indexOf(query) !== -1);
-}
+    return (this.indexOf(query) !== -1); }
 String.prototype.contains = function(query){
-    return (this.indexOf(query) !== -1);
-}
+    return (this.indexOf(query) !== -1); }
 
 // parser: String String (listof String) -> (listof String)
 // Splits the string str at every character in breaks, returning
@@ -120,9 +133,8 @@ function parser(str, breaks, multichar){
     return result;
 }
 
+// Grabs user selection and color codes it based on lang and skin rules.
 function coloredCode(lang, skin) {
-
-  // TO-DO: Support partial paragraph selections
 
   // Grab selection. If none, alert and exit
   var selection = DocumentApp.getActiveDocument().getSelection();
@@ -142,17 +154,29 @@ function coloredCode(lang, skin) {
     
     var paragraph = selectedElement.getElement().editAsText();
     var paragraphText = paragraph.getText();
+    
+    
+    var paragraphStart = 0;
+    var paragraphEnd = paragraphText.length - 1;
+    
+    // If partial, affect only selected portion
+    if (selectedElement.isPartial()) {
+      paragraphStart = selectedElement.getStartOffset();
+      paragraphEnd = selectedElement.getEndOffsetInclusive();
+      paragraphText = paragraphText.slice(paragraphStart, paragraphEnd+1);
+    }
+    
     if(paragraphText.length === 0) continue;
     var paragraphChunks = parser(paragraphText, languages[lang]['breaks'], languages[lang]['doubles']);
     
-    var startI = 0;
+    var startI = paragraphStart;
     var endI = 0;
     var isLast;
     
     //Remove any styling
-    format(paragraph, {bold:false, italic:false, fgcolor:'#000000', bgcolor:'#FFFFFF', fontFamily:'COURIER_NEW', fontSize:12});
+    format(paragraph, {bold:false, italic:false, fgcolor:'#000000', bgcolor:'#FFFFFF', fontFamily:'COURIER_NEW', fontSize:12}, paragraphStart, paragraphEnd);
     //Apply default style
-    format(paragraph, languages[lang]['styles'][skin]['def']);
+    format(paragraph, languages[lang]['styles'][skin]['def'], paragraphStart, paragraphEnd);
     
     //iterating through chunks
     for (var j = 0; j < paragraphChunks.length; ++j){

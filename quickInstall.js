@@ -1,5 +1,6 @@
 //*******************stylesBases.js**************
 
+
 function isOneOf(b) {return function(a) {return b.indexOf(a) != -1}}
 function isEqualTo(a) {return function(b) {return a == b}}
 function startsWithOneOf(b) {return function(a) {return b.indexOf(a[0]) != -1}}
@@ -34,21 +35,21 @@ Array.prototype.remove = function(to_rem){
     }
 }
 
-
 languages = {};
 // Format of a styling rule:
 // [ 0:chunkCheck, 1:style(inclusive), 2:endChars or endCount, 3:startCharStyle, 4:endCharStyle ]
 
-//*************** C ************************
+//************************ C ************************
+
 languages.c = {};
-languages.c.breaks = " #{}()/[].\r'\",;=-+*/\t&|";
+languages.c.breaks = " #{}()/[].\r'\",;=-+*%/\t&|";
 languages.c.doubles = ['//', '/*', '*/'];
-languages.c.operators = '(){};:?[]+-*/=<>.,&|!';
+languages.c.operators = '(){};:?[]+-*/=\%<>.,&|!';
 languages.c.keywords = ['if', 'else', 'switch', 'case', 'default', 'break', 'goto', 'return', 'for', 'while', 'do', 'continue', 'typedef', 'sizeof', 'NULL']; //instruction words
 languages.c.keywords1 = ['void', 'struct', 'union', 'enum', 'char', 'short', 'int', 'long', 'double', 'float', 'signed', 'unsigned', 'const', 'static', 'extern', 'auto', 'register', 'volatile']
 
 languages.c.styles = {};
-languages.c.styles.notepadpp = {};
+languages.c.styles.notepadpp = { name:"Notepad++" };
 languages.c.styles.notepadpp.def = {fontSize:11};
 languages.c.styles.notepadpp.rules = [[isOneOf(languages.c.keywords), {fgcolor:'#0000FF', bold:true}],
 									  [isOneOf(languages.c.keywords1), {fgcolor:'#8000FF', bold:true}],
@@ -61,7 +62,8 @@ languages.c.styles.notepadpp.rules = [[isOneOf(languages.c.keywords), {fgcolor:'
                                       [isEqualTo('/*'), {fgcolor:'#008080'}, ['*/']]];
 
 
-//*********** Racket ***************
+//********************** Racket **********************
+
 languages.racket = {};
 languages.racket.breaks = " ()[]\r\"'\t\\;#|’‘";
 languages.racket.doubles = ["#\\", '#|', '|#', '\\"', '...', '#f', '#t', '#:'];
@@ -70,7 +72,7 @@ languages.racket.commentLine = ';';
 languages.racket.builtin = ['+', '-', '*', '/', 'cons', 'list', 'empty?', 'first', 'rest', '<', '>', 'equal?', '=', '<=', '>=', 'build-list', 'filter', 'quicksort', 'map', 'andmap', 'ormap', 'foldr', 'foldl', 'assf', 'zero?', 'add1', 'sub1'];
 languages.racket.styles = {};
 
-languages.racket.styles.drracket = {};
+languages.racket.styles.drracket = { name:"DrRacket" };
 languages.racket.styles.drracket.call = function() {coloredCode('racket', 'drracket')};
 languages.racket.styles.drracket.def = {fgcolor:'#262680', fontSize:10};
 languages.racket.styles.drracket.rules = [[isOneOf('()[]'), {fgcolor:'#843c24'}], // formatting is only one chunk long
@@ -83,7 +85,7 @@ languages.racket.styles.drracket.rules = [[isOneOf('()[]'), {fgcolor:'#843c24'}]
                                           [isEqualTo("'"), {fgcolor:'#298026'}],
                                           [isEqualTo('"'), {fgcolor:'#298026'}, '"\r']];
 
-languages.racket.styles.UWCS = {};
+languages.racket.styles.UWCS = { name:"UW CS 135" };
 languages.racket.styles.UWCS.def = {fgcolor:'#0000FF', fontFamily:'ARIAL', fontSize:12};
 languages.racket.styles.UWCS.rules = [[isOneOf('()[]?'), {fgcolor:'#59439B'}],
                                       [isOneOf(languages.racket.keywords), {fgcolor:'#FF0000'}],
@@ -95,7 +97,7 @@ languages.racket.styles.UWCS.rules = [[isOneOf('()[]?'), {fgcolor:'#59439B'}],
                                       [isEqualTo('#\\'), {fgcolor:'#231f20'}, 1],
                                       [isEqualTo('"'), {fgcolor:'#231F20'}, '"\r', {fgcolor:'#59439B'}, {fgcolor:'#59439B'}]];
 
-languages.racket.styles.HtDP = {};
+languages.racket.styles.HtDP = { name:"HtDP" };
 languages.racket.styles.HtDP.def = {fgcolor:'#000080', fontSize:10};
 languages.racket.styles.HtDP.rules = [[isOneOf('()[]'), {fgcolor:'#A52A2A'}],
                                       [isOneOf(languages.racket.keywords), {fgcolor:'#A52A2A', bold:true}],
@@ -105,6 +107,7 @@ languages.racket.styles.HtDP.rules = [[isOneOf('()[]'), {fgcolor:'#A52A2A'}],
                                       [isNumber, {fgcolor:'#008000'}],
                                       [isEqualTo('"'), {fgcolor:'#008000'}, '"\r']];
 
+
 //****************** JavaScript ************************
 
 languages.javascript = {};
@@ -113,7 +116,7 @@ languages.javascript.doubles = ["//", '/*', '*/', '\\"'];
 languages.javascript.keywords = ['abstract', 'boolean', 'break', 'byte', 'case', 'catch', 'char', 'class', 'const', 'continue', 'debugger', 'default', 'delete', 'do', 'double', 'else', 'enum', 'export', 'extends', 'final', 'finally', 'float', 'for', 'function', 'goto', 'if', 'implements', 'import', 'in', 'instanceof', 'int', 'interface', 'long', 'native', 'new', 'package', 'private', 'protected', 'public', 'return', 'short', 'static', 'super', 'switch', 'synchronized', 'this', 'throw', 'throws', 'transient', 'try', 'typeof', 'var', 'void', 'volatile', 'while', 'with'];
 languages.javascript.styles = {};
 
-languages.javascript.styles.google = {};
+languages.javascript.styles.google = { name:"Google Apps Scripts" };
 languages.javascript.styles.google.def = {fontFamily:'DROID_SANS', fontSize:10};
 languages.javascript.styles.google.rules = [[isOneOf(languages.javascript.keywords), {fgcolor:'#8C0088'}],
                                             [isNumber, {fgcolor:'#116644'}],
@@ -123,7 +126,7 @@ languages.javascript.styles.google.rules = [[isOneOf(languages.javascript.keywor
                                             [isEqualTo('//'),{fgcolor:'#AA5500'}, '\r'],
                                             [isEqualTo('/*'),{fgcolor:'#AA5500'}, ['*/']]];
 
-languages.javascript.styles.notepadpp = {};
+languages.javascript.styles.notepadpp = { name:"Notepad++" };
 languages.javascript.styles.notepadpp.def = {fontSize:10};
 languages.javascript.styles.notepadpp.rules = [[isOneOf(languages.javascript.keywords.concat('prototype','true','false')), {fgcolor:'#000080', bold:true, italic:true}],
                                                [isNumber, {fgcolor:'#ff0000'}],
@@ -132,7 +135,7 @@ languages.javascript.styles.notepadpp.rules = [[isOneOf(languages.javascript.key
                                                [isEqualTo('//'), {fgcolor:'#008000'}, '\r'],
                                                [isEqualTo('/*'), {fgcolor:'#008000'}, ['*/']]];
 
-languages.javascript.styles.codecademyLabs = {};
+languages.javascript.styles.codecademyLabs = { name:"Codecademy Labs" };
 languages.javascript.styles.codecademyLabs.def = {fontSize:10};
 languages.javascript.styles.codecademyLabs.rules = [[isOneOf(languages.javascript.keywords.concat('prototype','true','false')), {fgcolor:'#0000FF'}],
                                                     [isNumber, {fgcolor:'#4C8882'}],
@@ -140,6 +143,7 @@ languages.javascript.styles.codecademyLabs.rules = [[isOneOf(languages.javascrip
                                                     [isEqualTo('"'), {fgcolor:'#036A07'}, '"\r'],
                                                     [isEqualTo('//'), {fgcolor:'#4C886B'}, '\r'],
                                                     [isEqualTo('/*'), {fgcolor:'#4C886B'}, ['*/']]];
+
 
 //****************** Python **********************
 
@@ -149,7 +153,7 @@ languages.python.doubles = ['"""', '+=', '!='];
 languages.python.keywords = ['and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'exec', 'False', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'None', 'not', 'or', 'pass', 'print', 'raise', 'return', 'triple', 'True', 'try', 'while', 'with', 'yield'];
 languages.python.styles = {};
 
-languages.python.styles.notepadpp = {};
+languages.python.styles.notepadpp = { name:"Notepad++" };
 languages.python.styles.notepadpp.def = {fontSize:10};
 languages.python.styles.notepadpp.rules = [[isEqualTo('def'), {}, 2, {fgcolor:'#0000FF', bold:true}, {fgcolor:'#FF00FF'}],
                                            [isOneOf(languages.python.keywords), {fgcolor:'#0000FF', bold:true}],
@@ -209,7 +213,8 @@ function format(text, style, start, end){
 var ui = DocumentApp.getUi();
 
 function onOpen() {
-  ui.createMenu('Syntax Coloring')
+  ui.createMenu('Syntax Highlighting')
+      .addItem('Choose language... (beta)', 'langSelector')
 	  .addSubMenu(ui.createMenu('C')
 				 .addItem('Notepad++', 'cnotepadpp'))
       .addSubMenu(ui.createMenu('JavaScript')
@@ -234,13 +239,25 @@ function jsnotepadpp(){coloredCode('javascript', 'notepadpp')};
 function pythonnotepadpp(){coloredCode('python', 'notepadpp')};
 function jscodecademy(){coloredCode('javascript', 'codecademyLabs')};
 
-// Some useful functions
+function langSelector() {
+  try{
+    DocumentApp.getUi().showSidebar(
+      HtmlService
+      .createHtmlOutputFromFile('langSelector')
+      .setSandboxMode(HtmlService.SandboxMode.NATIVE)
+      .setTitle('Syntax Highlighting')
+      .setWidth(250 /* pixels */));
+  }
+  catch(err){
+    ui.alert('This feature is in beta. To test it, make sure the langSelector.html file is in the script');
+  }
+}
+
+//Determine if the parameter is in the given Array or String
 Array.prototype.contains = function(query){
-    return (this.indexOf(query) !== -1);
-}
+    return (this.indexOf(query) !== -1); }
 String.prototype.contains = function(query){
-    return (this.indexOf(query) !== -1);
-}
+    return (this.indexOf(query) !== -1); }
 
 // parser: String String (listof String) -> (listof String)
 // Splits the string str at every character in breaks, returning
@@ -320,9 +337,8 @@ function parser(str, breaks, multichar){
     return result;
 }
 
+// Grabs user selection and color codes it based on lang and skin rules.
 function coloredCode(lang, skin) {
-
-  // TO-DO: Support partial paragraph selections
 
   // Grab selection. If none, alert and exit
   var selection = DocumentApp.getActiveDocument().getSelection();
@@ -342,17 +358,29 @@ function coloredCode(lang, skin) {
     
     var paragraph = selectedElement.getElement().editAsText();
     var paragraphText = paragraph.getText();
+    
+    
+    var paragraphStart = 0;
+    var paragraphEnd = paragraphText.length - 1;
+    
+    // If partial, affect only selected portion
+    if (selectedElement.isPartial()) {
+      paragraphStart = selectedElement.getStartOffset();
+      paragraphEnd = selectedElement.getEndOffsetInclusive();
+      paragraphText = paragraphText.slice(paragraphStart, paragraphEnd+1);
+    }
+    
     if(paragraphText.length === 0) continue;
     var paragraphChunks = parser(paragraphText, languages[lang]['breaks'], languages[lang]['doubles']);
     
-    var startI = 0;
+    var startI = paragraphStart;
     var endI = 0;
     var isLast;
     
     //Remove any styling
-    format(paragraph, {bold:false, italic:false, fgcolor:'#000000', bgcolor:'#FFFFFF', fontFamily:'COURIER_NEW', fontSize:12});
+    format(paragraph, {bold:false, italic:false, fgcolor:'#000000', bgcolor:'#FFFFFF', fontFamily:'COURIER_NEW', fontSize:12}, paragraphStart, paragraphEnd);
     //Apply default style
-    format(paragraph, languages[lang]['styles'][skin]['def']);
+    format(paragraph, languages[lang]['styles'][skin]['def'], paragraphStart, paragraphEnd);
     
     //iterating through chunks
     for (var j = 0; j < paragraphChunks.length; ++j){
